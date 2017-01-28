@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tom.pfms.dao.OtherAccountsDao">
+    <sql id="querySql">
+      <![CDATA[　　
+	　　select account_id          accountId,
+		       username,
+		       passkey             password,
+		       visit_addr          visitAddr,
+		       account_description accountDescription,
+		       account_status      accountStatus
+		  from fms_other_account_info 
+		  where account_owner = #{requestObject.accountOwner}
+	  ]]>
+	  <if test="requestObject.accountId != null">
+		and account_id = #{requestObject.accountId,jdbcType=INTEGER}
+	  </if>
+	  <if test="requestObject.accountDescription != null and requestObject.accountDescription != ''">
+		and account_description like '%'||#{requestObject.accountDescription,jdbcType=VARCHAR}||'%'
+	  </if>
+	  order by account_id asc
+　　</sql>
+
+    <sql id="pageTail">
+        ) t where rownum &lt;= #{limit}) t1 where t1.rn &gt; #{offset}
+    </sql>
+    
+    <sql id="pageHead">
+        select * from (select rownum rn, t.* from (
+    </sql>
+    
+    <sql id="countTail">
+    <![CDATA[
+        )
+    ]]>
+    </sql>
+    
+    <sql id="countHead">
+        select count(1) from (
+    </sql>
+    
+
+    <select id="queryOtherAccountsList" parameterType="org.tom.pfms.common.dto.RequestParam" resultType="org.tom.pfms.common.dto.OtherAccountDTO">
+        <include refid="pageHead" />
+        <include refid="querySql" />
+        <include refid="pageTail" />
+    </select>
+    
+    <select id="queryOtherAccountsCount" parameterType="org.tom.pfms.common.dto.RequestParam" resultType="Integer">
+        <include refid="countHead" />
+        <include refid="querySql" /> 
+         <include refid="countTail" />
+    </select>
+    
+    <delete id="delete" parameterType="org.tom.pfms.common.dto.RequestParam">
+        delete from fms_other_account_info where account_id = #{requestObject.accountId}
+    </delete>
+    
+    <update id="save" parameterType="org.tom.pfms.common.dto.RequestParam">
+        insert into fms_other_account_info (ACCOUNT_ID, USERNAME, PASSKEY, visit_addr, ACCOUNT_DESCRIPTION, ACCOUNT_STATUS, USER_CREATED, TIME_CREATED, USER_MODIFIED, TIME_MODIFIED, REMARK, account_owner)
+		values (SEQ_OTHER_ACCOUNT_INFO.nextval, #{requestObject.username}, #{requestObject.password}, #{requestObject.visitAddr}, #{requestObject.accountDescription}, 'Y', #{loginUserName}, sysdate, #{loginUserName}, sysdate, null, #{requestObject.accountOwner})
+    </update>
+    
+    <update id="update" parameterType="org.tom.pfms.common.dto.RequestParam">
+        update fms_other_account_info t set USERNAME = #{requestObject.username}, 
+                                    PASSKEY = #{requestObject.password}, 
+									visit_addr = #{requestObject.visitAddr}, 
+									ACCOUNT_DESCRIPTION = #{requestObject.accountDescription}, 
+									USER_MODIFIED = #{loginUserName}, 
+									TIME_MODIFIED = sysdate
+		 where account_id = #{requestObject.accountId}
+    </update>
+    
+</mapper>

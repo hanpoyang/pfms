@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tom.pfms.dao.UserDao">
+    <resultMap id="UserMap" type="org.tom.pfms.common.dto.UserDTO">
+        <result column="user_id" property="userId" javaType="String" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="queryUserByUserName" parameterType="String" resultType="org.tom.pfms.common.dto.UserDTO">
+      <![CDATA[　　
+	　　select user_id         userId,
+		       user_name       userName,
+		       pass_word       passWord,
+		       user_status     userStatus,
+		       active_date     activeDate,
+		       expire_date     expireDate,
+		       last_login_ip   lastLoginIp,
+		       last_login_date lastLoginDate
+		  from fms_sys_account_info
+		  where user_status = 'Y' and  user_name = #{userName}
+	  ]]>
+　　</select>
+</mapper>

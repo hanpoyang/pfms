@@ -1,0 +1,105 @@
+<?xml version="1.0" ?>
+<project name="pfms" basedir="." default="deploy">
+	<property file="build.properties" /> 
+	<property environment="env" />
+	<property name="project.root" value="." />
+	<property name="src.java.dir" value="${project.root}/src/main/java" />
+	<property name="src.web.dir" value="${project.root}/webroot" />
+	<property name="src.config.dir" value="${project.root}/src/main/config" />
+	<property name="lib.dir" value="${project.root}/lib" />
+	<property name="build.dir" value="${project.root}/build" />
+	<property name="classes.dir" value="${src.web.dir}/WEB-INF/classes" />
+	<property name="dist.dir" value="${project.root}/dist"  />
+	
+	<target name="info">
+		<echo message="${env.CLASSPATH}" />
+	</target>
+	
+	<!-- 初始化-->
+	<target name="init">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${classes.dir}" />
+	</target>
+	<available file="${j2ee.api.jar}" property="j2ee.api.available" />
+	<path id="main-path">
+	    <fileset dir="${lib.dir}">
+	    	<include name="**/**" />
+	    </fileset>
+		<fileset file="${tomcat7.servlet.api.jar}" />
+		<fileset file="${tomcat7.jsp.api.dir}" />
+	</path>
+	
+	<target name="compile">
+		<javac srcdir="${src.java.dir}" destdir="${classes.dir}" debug="true">
+		    <include name="**/**" />
+			<classpath refid="main-path" />
+		</javac>
+	</target>
+	
+	<!--构建部署目录-->
+	<target name="tomcat-exploded" depends="init,compile" unless="jboss">
+		<echo message="server is tomcat" />
+		<mkdir dir="${build.dir}/tmp" />
+		<mkdir dir="${build.dir}/tmp/${project.name}" />
+		<mkdir dir="${build.dir}/tmp/${project.name}/${project.name}.war" />
+		<mkdir dir="${build.dir}/tmp/${project.name}/${project.name}.war/META-INF" />
+		<mkdir dir="${build.dir}/tmp/${project.name}/${project.name}.war/WEB-INF" />
+		<mkdir dir="${build.dir}/tmp/${project.name}/${project.name}.war/WEB-INF/lib" />
+		<mkdir dir="${build.dir}/tmp/${project.name}/${project.name}.war/WEB-INF/classes" />
+		<copy todir="${build.dir}/tmp/${project.name}/${project.name}.war">
+		    <fileset dir="${src.web.dir}">
+		    	<include name="**/**" />
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/tmp/${project.name}/${project.name}.war/WEB-INF">
+		    <fileset dir="${src.config.dir}">
+		    	<include name="**/**" />
+		    	<exclude name="context.xml" />
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/tmp/${project.name}/${project.name}.war/WEB-INF/classes">
+			<fileset dir="${classes.dir}">
+				<include name="**/**" />
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/tmp/${project.name}/${project.name}.war/WEB-INF/lib">
+		    <fileset dir="${lib.dir}">
+		    	<include name="**/**" />
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/tmp/${project.name}/${project.name}.war/META-INF" file="${src.config.dir}/context.xml" />
+	</target>
+	
+	<target name="ear-tomcat" depends="clean,tomcat-exploded">
+		<echo message="tomcat" />
+		<mkdir dir="${dist.dir}/${project.name}" />
+		<copy todir="${dist.dir}/${project.name}">
+			<fileset dir="${build.dir}/tmp/${project.name}">
+				<include name="META-INF/**" />
+				<include name="APP-INF/**" />
+			</fileset>
+		</copy>
+		<jar destfile="${dist.dir}/${project.name}/${project.name}.war">
+			<fileset dir="${build.dir}/tmp/${project.name}/${project.name}.war">
+				<include name="**/**" />
+			</fileset>
+		</jar>
+		<copy todir="${dist.dir}">
+			<fileset dir="${dist.dir}/${project.name}">
+				<include name="*.war" />
+			</fileset>
+		</copy>
+		<delete dir="${dist.dir}/${project.name}" />
+	</target>
+	
+		
+	<target name="deploy" depends="ear-tomcat">
+		<copy todir="${deploy.dir}" file="${dist.dir}/${project.name}.war"/>
+	</target>
+	
+	<target name="clean">
+		<delete dir="${dist.dir}" />
+		<delete dir="${build.dir}" />
+	</target>
+</project>

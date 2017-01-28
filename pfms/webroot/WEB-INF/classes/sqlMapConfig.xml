@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE configuration PUBLIC  
+     "-//mybatis.org//DTD Config 3.0//EN"  
+     "http://mybatis.org/dtd/mybatis-3-config.dtd">  
+ <configuration> 
+ <settings>
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+     <mappers>  
+       <mapper resource="UserDao.xml"/>  
+       <mapper resource="OtherAccountsDao.xml"/> 
+       <mapper resource="SystemAccountDao.xml"/>
+       <mapper resource="BankAccountDao.xml"/> 
+       <mapper resource="TaskJobDao.xml"/>
+       <mapper resource="CreditMailDao.xml"/>  
+       <mapper resource="CreditBillDao.xml"/>  
+       <mapper resource="DebitCardDao.xml" />
+     </mappers>  
+ </configuration>  
