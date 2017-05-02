@@ -6,6 +6,7 @@ public class ConstantSettings {
     public static final String KEY_MESSAGE = "KEY_MESSAGE";
     public static final String KEY_RESULT = "KEY_RESULT";
     public static final String KEY_PARAM = "KEY_PARAM";
+    public static final String KEY_URL = "KEY_URL";
     
     public static final String LOGIN_SUCCESS = "1";
     public static final String LOGIN_INVALID_USER = "-1";
@@ -65,6 +66,8 @@ public class ConstantSettings {
     		public static final String queryCreditBillCount = "org.tom.pfms.dao.CreditBillDao.queryCreditBillCount";    		
     		public static final String updateIsClear = "org.tom.pfms.dao.CreditBillDao.updateIsClear";    		
     		public static final String queryCreditBillDetail = "org.tom.pfms.dao.CreditBillDao.queryCreditBillDetail";
+    		//queryCreditBillSummary
+    		public static final String queryCreditBillSummary = "org.tom.pfms.dao.CreditBillDao.queryCreditBillSummary";
     	}
     	
     	public class DebitCardDao {
@@ -78,6 +81,40 @@ public class ConstantSettings {
     		public static final String invalidDebit = "org.tom.pfms.dao.DebitCardDao.invalidDebit";
     		
     		public static final String queryDebitSummary = "org.tom.pfms.dao.DebitCardDao.queryDebitSummary";
+    		public static final String queryDebits = "org.tom.pfms.dao.DebitCardDao.queryDebits";
     	}
+    	
+    	public class DebitDetailDao{
+    		public static final String queryDebitDetails = "org.tom.pfms.dao.DebitDetailDao.queryDebitDetails";
+    		public static final String queryDebitDetailCount = "org.tom.pfms.dao.DebitDetailDao.queryDebitDetailCount";
+    		public static final String importDebitDetails = "org.tom.pfms.dao.DebitDetailDao.importDebitDetails";
+    		public static final String queryIncomes = "org.tom.pfms.dao.DebitDetailDao.queryIncomes";
+    		public static final String queryOutcomes = "org.tom.pfms.dao.DebitDetailDao.queryOutcomes";
+    		
+    	}
+    	
+    	public class DailySchedulerDao{
+    		public static final String queryDailySchedulers = "org.tom.pfms.dao.DailySchedulerDao.queryDailySchedulers";
+    		public static final String queryDailySchedulerCount = "org.tom.pfms.dao.DailySchedulerDao.queryDailySchedulerCount";
+    		//saveDailyScheduler
+    		public static final String saveDailyScheduler = "org.tom.pfms.dao.DailySchedulerDao.saveDailyScheduler";
+    	}
+    	
+    	public class SysMenuDao {
+    		public static final String queryMenus = "org.tom.pfms.dao.SysMenuDao.queryMenus";
+    	}
+    	
+    	public class NbContactDao {
+    		public static final String queryNbContact = "org.tom.pfms.dao.NbContactDao.queryNbContact";
+    		public static final String queryNbContactCount = "org.tom.pfms.dao.NbContactDao.queryNbContactCount";
+    		public static final String insertNbContact = "org.tom.pfms.dao.NbContactDao.insertNbContact";
+    		public static final String updateNbContact = "org.tom.pfms.dao.NbContactDao.updateNbContact";
+    		public static final String deleteNbContact = "org.tom.pfms.dao.NbContactDao.deleteNbContact";
+    	}
+    	
+    	public class PCEquipmentDao {
+    		public static final String queryPcList = "org.tom.pfms.dao.PCEquipmentDao.queryPcList";
+    	}
+    	
     }
 }

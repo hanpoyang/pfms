@@ -22,7 +22,7 @@
 			and t.card_owner = #{requestObject.cardOwner}
 		]]>
 		<if test="requestObject.cardNumber != null and requestObject.cardNumber != ''">
-		    and t.card_number like '%'  #{requestObject.cardNumber} || '%'
+		    and t.card_number like '%' || #{requestObject.cardNumber} || '%'
 		</if>
 		<if test="requestObject.accountName != null and requestObject.accountName != ''">
 		    and t.account_name like '%' || #{requestObject.accountName} || '%'
@@ -154,6 +154,11 @@
 		       to_char(t.total_balance, '99999999999.00') totalBalance
 		  from temp t, fms_bank_tbl b
 		 where t.bank_code = b.bank_code
+    </select>
+    
+    <select id="queryDebits" resultType="org.tom.pfms.common.dto.KeyValuePair">
+        select card_number value, debit_card_id key  from fms_bank_debit_card_info 
+        where card_owner = #{loginUserName} and belong_to_user = 'Y' and bank_code = #{requestObject}
     </select>
     
 </mapper>

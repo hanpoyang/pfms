@@ -78,7 +78,5 @@ public class BankAccountDaoImpl extends BaseDao implements BankAccountDao {
 			throw new DaoException(e);
 		}
 	}
-	
-	
     
 }

@@ -105,11 +105,53 @@
     <select id="queryCreditBillCount" parameterType="org.tom.pfms.common.dto.RequestParam" resultType="Integer">
         <include refid="countHead" />
         <include refid="querySql" /> 
-         <include refid="countTail" />
+        <include refid="countTail" />
     </select>
     
     <update id="updateIsClear" parameterType="org.tom.pfms.common.dto.RequestParam">
         update fms_bank_credit_bill_info t set t.is_clear = 'Y', time_modified = sysdate, user_modified=#{loginUserName} where credit_bill_id = #{requestObject.creditBillId}
     </update>
+    
+    <!-- 汇总 -->
+    <select id="queryCreditBillSummary" parameterType="org.tom.pfms.common.dto.RequestParam" resultType="org.tom.pfms.common.dto.CreditBillDTO">
+     <![CDATA[
+     with temp as (select bank_name bankName, Cny_Imburse_Amount cnyImburseAmount, is_clear isClear
+	  from (select b.bank_name, a.Cny_Imburse_Amount, a.is_clear
+	          from fms_bank_credit_bill_info a, fms_bank_credit_card_info b
+	         where a.credit_card = b.card_number
+	           and b.bank_code = 'CMB'
+	           and b.card_owner = #{loginUserName}
+	         order by a.bill_date desc)
+	where rownum <= 1
+	union all
+	select bank_name bankName, Cny_Imburse_Amount cnyImburseAmount, is_clear isClear
+	  from (select b.bank_name, a.Cny_Imburse_Amount, a.is_clear
+	          from fms_bank_credit_bill_info a, fms_bank_credit_card_info b
+	         where a.credit_card = b.card_number
+	           and b.bank_code = 'SPDB'
+	           and b.card_owner = #{loginUserName}
+	         order by a.bill_date desc)
+	where rownum <= 1
+	union all
+	select bank_name bankName, Cny_Imburse_Amount cnyImburseAmount, is_clear isClear
+	  from (select b.bank_name, a.Cny_Imburse_Amount, a.is_clear
+	          from fms_bank_credit_bill_info a, fms_bank_credit_card_info b
+	         where a.credit_card = b.card_number
+	           and b.bank_code = 'ABC'
+	           and b.card_owner = #{loginUserName}
+	         order by a.bill_date desc)
+	where rownum <= 1
+	union all
+	select bank_name bankName, Cny_Imburse_Amount cnyImburseAmount, is_clear isClear
+	  from (select b.bank_name, a.Cny_Imburse_Amount, a.is_clear
+	          from fms_bank_credit_bill_info a, fms_bank_credit_card_info b
+	         where a.credit_card = b.card_number
+	           and b.bank_code = 'CGB'
+	           and b.card_owner = #{loginUserName}
+	         order by a.bill_date desc)
+	where rownum <= 1)
+	select * from temp
+	]]>
+    </select>
     
 </mapper>

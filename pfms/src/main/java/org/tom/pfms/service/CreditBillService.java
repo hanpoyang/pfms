@@ -1,5 +1,7 @@
 package org.tom.pfms.service;
 
+import java.util.List;
+
 import org.tom.pfms.common.dto.CreditBillDTO;
 import org.tom.pfms.common.dto.PaginatedDTO;
 import org.tom.pfms.common.dto.RequestParam;
@@ -12,5 +14,7 @@ public interface CreditBillService {
 	public void updateIsClear(RequestParam rp) throws ServiceException;
 	
 	public CreditBillDTO queryCreditBillDetail(RequestParam rp) throws ServiceException;
+	
+	public List<CreditBillDTO> queryCreditBillSummary(RequestParam rp) throws ServiceException;
 	
 }

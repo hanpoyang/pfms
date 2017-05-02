@@ -36,7 +36,7 @@ public class CkTokenFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest)req;
 		HttpSession session = request.getSession(false);
 		String url = request.getRequestURL().toString();
-		if(!url.endsWith("signon")){
+		if(!url.endsWith("signon") && !url.endsWith("websocket")){
 			String token = request.getParameter("token");
 			System.out.println("##token::"+token);
 			if(token == null) {

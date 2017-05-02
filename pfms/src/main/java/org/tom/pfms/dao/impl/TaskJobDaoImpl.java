@@ -34,7 +34,7 @@ public class TaskJobDaoImpl extends BaseDao implements TaskJobDao {
 	@Override
 	public void execParseMailProc() throws DaoException {
 		try{
-			sTemplate.update(ConstantSettings.SQL_ID.TaskJobDao.updateTask);
+			sTemplate.update(ConstantSettings.SQL_ID.TaskJobDao.execParseMailProc);
 		}catch(Exception e) {
 			log.error("execParseMailProc", e);
 			throw new DaoException(e);

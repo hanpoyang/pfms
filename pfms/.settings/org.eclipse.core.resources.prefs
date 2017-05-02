@@ -1,3 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/main/resource/pfms-config.properties=UTF-8
 encoding//webroot/WEB-INF/views/bank/debit_summary.jsp=UTF-8
+encoding//webroot/WEB-INF/views/common/menu.jsp=UTF-8
 encoding//webroot/WEB-INF/views/otheraccounts/accounts.jsp=UTF-8
+encoding//webroot/js/Calendar.js=UTF-8

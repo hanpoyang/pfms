@@ -1,11 +1,7 @@
 <%@ page language="java" pageEncoding="utf-8" %><%@taglib
 	uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!doctype html>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <style>
-body{margin:0; padding:0; font-family:microsoft yahei; font-size:11px;}
+div{margin:0; padding:0; font-family:microsoft yahei; font-size:11px;}
 .container {
   width: 370px;
   height: 251px;
@@ -14,13 +10,13 @@ body{margin:0; padding:0; font-family:microsoft yahei; font-size:11px;}
   }
 .list{float:right; width:50%;}  
 .div{height:240px;}
-table td{padding:2px; }
+table td{padding:3px; }
 </style>
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
-</head>
-<body>
-<div class="container"><div class="pie-div"><svg width="50%"></svg><div id="list_div" class="list"><table></table></div></div><div>---------------------------------------------</div><span id="SummarySpan"></span></div>
+<div class="container">
+<p><h3>借记卡资产</h3></p>
+<div class="pie-div"><svg width="50%"></svg><div id="list_div" class="list"><table></table></div></div><div>---------------------------------------------</div><span id="SummarySpan"></span></div>
 <script type="text/javascript">
   var debitSummary = [];
   var dataSet = [];
@@ -119,5 +115,3 @@ table td{padding:2px; }
   }
  
 </script>
-</body>
-</html>

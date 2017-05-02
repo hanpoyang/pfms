@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.tom.pfms.common.dto.BankLoanDTO;
 import org.tom.pfms.common.dto.DebitCardDTO;
 import org.tom.pfms.common.dto.DebitSummaryDTO;
+import org.tom.pfms.common.dto.KeyValuePair;
 import org.tom.pfms.common.dto.PaginatedDTO;
 import org.tom.pfms.common.dto.RequestParam;
 import org.tom.pfms.common.exception.DaoException;
@@ -80,6 +81,18 @@ public class DebitCardDaoImpl extends BaseDao implements DebitCardDao{
 			return sTemplate.selectList(ConstantSettings.SQL_ID.DebitCardDao.queryDebitSummary);
 		} catch (Exception e) {
 			log.error("queryDebitSummary", e);
+			throw new DaoException(e);
+		}
+	}
+	
+	@Override
+	public List<KeyValuePair> queryDebits(RequestParam rp) throws DaoException {
+		
+		try {
+			List<KeyValuePair> result = sTemplate.selectList(ConstantSettings.SQL_ID.DebitCardDao.queryDebits, rp);
+			return result;
+		} catch (Exception e) {
+			log.error("queryDebits", e);
 			throw new DaoException(e);
 		}
 	}

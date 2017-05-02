@@ -1,11 +1,14 @@
 package org.tom.pfms.web.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.tom.pfms.common.dto.BankLoanDTO;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.tom.pfms.common.dto.CreditBillDTO;
 import org.tom.pfms.common.dto.PaginatedDTO;
 import org.tom.pfms.common.dto.RequestParam;
@@ -14,6 +17,8 @@ import org.tom.pfms.common.exception.ServiceException;
 import org.tom.pfms.common.utils.ConstantSettings;
 import org.tom.pfms.common.utils.MessageUtils;
 import org.tom.pfms.service.CreditBillService;
+
+import com.google.gson.Gson;
 
 @Controller
 public class CreditBillController extends BaseController {
@@ -105,4 +110,28 @@ public class CreditBillController extends BaseController {
 		request.setAttribute(ConstantSettings.KEY_MESSAGE, message);
     	return "redirect:/bank/creditbill";
     }
+	
+	@RequestMapping(value="/bank/creditsummary", method=RequestMethod.GET)
+	public String showCreditBillSummary(){
+		return "bank/credit_summary";
+	}
+	
+	@RequestMapping(value="/bank/credit_summary_data", produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public String queryCreditBillSummary(HttpServletRequest request) {
+		List<CreditBillDTO> result = null;
+		UserDTO user = (UserDTO)request.getSession(false).getAttribute(ConstantSettings.LOGIN_USER);
+		String username = user.getUserName();
+		RequestParam rp = new RequestParam();
+		rp.setLoginUserName(username);
+		saveRequestParam(request, rp);
+		try{
+			result = creditBillService.queryCreditBillSummary(rp);
+		}catch(ServiceException e) {
+			log.error("queryCreditBillSummary", e);
+		}
+		Gson gsonUtil = new Gson();
+		String json = gsonUtil.toJson(result);
+		return json;
+	}
 }

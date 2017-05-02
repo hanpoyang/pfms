@@ -27,7 +27,7 @@ public class AccessControlServiceImpl extends BaseService implements AccessContr
 		try{
 		    user = userDao.queryUserByUserName(user.getUserName());
 		    if(user != null) {
-		    	if(passWord.equals(passWord)){
+		    	if(passWord.equals(user.getPassWord())){
 		    		result.put(ConstantSettings.LOGIN_RESULT, ConstantSettings.LOGIN_SUCCESS);
 		    		result.put(ConstantSettings.LOGIN_USER, user);
 		    	} else {

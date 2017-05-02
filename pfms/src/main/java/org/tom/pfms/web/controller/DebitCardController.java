@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.tom.pfms.common.dto.DebitCardDTO;
 import org.tom.pfms.common.dto.DebitSummaryDTO;
+import org.tom.pfms.common.dto.KeyValuePair;
 import org.tom.pfms.common.dto.PaginatedDTO;
 import org.tom.pfms.common.dto.RequestParam;
 import org.tom.pfms.common.dto.UserDTO;
@@ -194,6 +195,34 @@ public class DebitCardController extends BaseController {
 		}
 		Gson gsonUtil = new Gson();
 		String json = gsonUtil.toJson(result);
+		return json;
+	}
+	
+	
+	@RequestMapping(value="/bank/querydebits",method=RequestMethod.GET,produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public String queryDebits(HttpServletRequest request) 
+	    throws Exception {
+		List<KeyValuePair> result = null;
+		Gson gsonUtil = new Gson();
+		String message = null;
+		String json = "";
+		String bankCode = request.getParameter("bankcode");
+		UserDTO user = (UserDTO)request.getSession(false).getAttribute(ConstantSettings.LOGIN_USER);
+		String username = user.getUserName();
+		RequestParam rp = new RequestParam();
+		rp.setLoginUserName(username);
+		rp.setRequestObject(bankCode);
+		try{
+			result = debitCardService.queryDebits(rp);
+			json = gsonUtil.toJson(result);
+		}catch(ServiceException e) {
+			log.error("updateDebit", e);
+			message = MessageUtils.getMessage(ConstantSettings.LABEL_SYSTEM_ERROR);
+			throw new Exception(e);
+		}
+		if(message == null) message = "";
+		json = "{\"status\":\"1\", \"message\":\""+message+"\",\"data\":"+json+"}";
 		return json;
 	}
 }

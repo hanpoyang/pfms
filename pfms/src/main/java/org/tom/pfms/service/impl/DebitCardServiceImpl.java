@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.tom.pfms.common.dto.DebitCardDTO;
 import org.tom.pfms.common.dto.DebitSummaryDTO;
+import org.tom.pfms.common.dto.KeyValuePair;
 import org.tom.pfms.common.dto.PaginatedDTO;
 import org.tom.pfms.common.dto.RequestParam;
 import org.tom.pfms.common.exception.DaoException;
@@ -67,13 +68,25 @@ public class DebitCardServiceImpl extends BaseService implements
 	
 	@Override
 	public List<DebitSummaryDTO> queryDebitSummary() 
-			throws ServiceException {
+		throws ServiceException {
 		try{
 			return debitCardDao.queryDebitSummary();
 		}catch(DaoException ex) {
 			log.error("queryDebitSummary", ex);
 			throw new ServiceException(ex);
 		}
+	}
+	
+	@Override
+	public List<KeyValuePair> queryDebits(RequestParam rp) 
+	    throws ServiceException {
+		try {
+			return debitCardDao.queryDebits(rp);
+		} catch (DaoException e) {
+			log.error("queryBanks", e);
+			throw new ServiceException(e);
+		}
+		
 	}
 
 }

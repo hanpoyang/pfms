@@ -21,7 +21,7 @@ public class UserAutorityCheckFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest)req;
 		HttpSession session = request.getSession(false);
 		String url = request.getRequestURL().toString();
-		if(!url.endsWith("signon")){
+		if(!url.endsWith("signon") && !url.endsWith("websocket")){
 			if(session != null) {
 				Object tmp = session.getAttribute(ConstantSettings.LOGIN_USER);
 				if(tmp != null) {

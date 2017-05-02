@@ -73,12 +73,6 @@ public class OtherAccountsController extends BaseController {
 		saveRequestParam(request, rp);
 		try{
 			otherAccountService.delete(rp);
-			rp = getPreRequestParam(request);
-			saveRequestParam(request, rp);
-			log.info("----------------rp:"+rp);
-			result = otherAccountService.queryOtherAccountsList(rp);
-			result.setPageNo(rp.getPageNo());
-			request.setAttribute(ConstantSettings.KEY_RESULT, result);
 		}catch(ServiceException e) {
 			log.error("delete", e);
 			message = MessageUtils.getMessage(ConstantSettings.LABEL_SYSTEM_ERROR);
@@ -86,7 +80,7 @@ public class OtherAccountsController extends BaseController {
 		}
 		request.setAttribute(ConstantSettings.KEY_MESSAGE, message);
 		request.setAttribute(ConstantSettings.KEY_PARAM, rp);
-		return "otheraccounts/accounts";
+		return "redirect:/otheraccounts/accounts";
 	}
 	
 	@RequestMapping("/otheraccounts/addform")
@@ -146,12 +140,10 @@ public class OtherAccountsController extends BaseController {
 		try{
 			System.out.println(4);
 			result = otherAccountService.queryOtherAccountsList(rp);
-			System.out.println("5:"+result);
 			List<OtherAccountDTO> li = result.getDataList();
 			if(li != null && li.size()> 0){
 				account = li.get(0);
 				account.setUsername(AES256.decrypt(account.getUsername()));
-				account.setPassword(AES256.decrypt(account.getPassword()));
 				log.info(account);
 				request.setAttribute(ConstantSettings.KEY_RESULT, account);
 			} else {
@@ -168,9 +160,15 @@ public class OtherAccountsController extends BaseController {
 	
 	@RequestMapping(value="/otheraccounts/update", method=RequestMethod.POST)
 	public String saveUpdate(HttpServletRequest request) throws Exception {
+		String oldPassword = request.getParameter("old-password");
 		OtherAccountDTO otherAccountsDTO = (OtherAccountDTO)encapsulateSubmitDTO(request, OtherAccountDTO.class);
 		otherAccountsDTO.setUsername(AES256.encrypt(otherAccountsDTO.getUsername()));
-		otherAccountsDTO.setPassword(AES256.encrypt(otherAccountsDTO.getPassword()));
+		String newPassword = otherAccountsDTO.getPassword();
+		if("".equals(newPassword)) {
+			 otherAccountsDTO.setPassword(oldPassword);
+		} else {
+		    otherAccountsDTO.setPassword(AES256.encrypt(newPassword));
+		}
 		UserDTO user = (UserDTO)request.getSession(false).getAttribute(ConstantSettings.LOGIN_USER);
 		String username = user.getUserName();
 		RequestParam rp = new RequestParam();
@@ -193,7 +191,7 @@ public class OtherAccountsController extends BaseController {
 			request.setAttribute(ConstantSettings.KEY_RESULT, result);
 			request.setAttribute(ConstantSettings.KEY_PARAM, rp);
 		}catch(ServiceException e) {
-			log.error("saveAdd", e);
+			log.error("saveUpdate", e);
 			message = MessageUtils.getMessage(ConstantSettings.LABEL_SYSTEM_ERROR);
 			throw new Exception(e);
 		}

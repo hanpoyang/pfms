@@ -10,6 +10,8 @@
 	<property name="build.dir" value="${project.root}/build" />
 	<property name="classes.dir" value="${src.web.dir}/WEB-INF/classes" />
 	<property name="dist.dir" value="${project.root}/dist"  />
+	<property name="resource.dir" value="${project.root}/src/main/resource"  />
+	<property name="tomcat.home" value="/home/upload/tomcat/apache-tomcat-7.0.69" />
 	
 	<target name="info">
 		<echo message="${env.CLASSPATH}" />
@@ -52,14 +54,14 @@
 		    	<include name="**/**" />
 			</fileset>
 		</copy>
-		<copy todir="${build.dir}/tmp/${project.name}/${project.name}.war/WEB-INF">
-		    <fileset dir="${src.config.dir}">
-		    	<include name="**/**" />
-		    	<exclude name="context.xml" />
-			</fileset>
-		</copy>
 		<copy todir="${build.dir}/tmp/${project.name}/${project.name}.war/WEB-INF/classes">
 			<fileset dir="${classes.dir}">
+				<include name="**/**" />
+			</fileset>
+			<fileset dir="${resource.dir}">
+				<include name="**/**" />
+			</fileset>
+			<fileset dir="${src.config.dir}">
 				<include name="**/**" />
 			</fileset>
 		</copy>
@@ -80,7 +82,7 @@
 				<include name="APP-INF/**" />
 			</fileset>
 		</copy>
-		<jar destfile="${dist.dir}/${project.name}/${project.name}.war">
+		<jar destfile="${dist.dir}/${project.name}/ROOT.war">
 			<fileset dir="${build.dir}/tmp/${project.name}/${project.name}.war">
 				<include name="**/**" />
 			</fileset>
@@ -95,7 +97,18 @@
 	
 		
 	<target name="deploy" depends="ear-tomcat">
-		<copy todir="${deploy.dir}" file="${dist.dir}/${project.name}.war"/>
+		<copy todir="${deploy.dir}" file="${dist.dir}/ROOT.war"/>
+		<scp file="${dist.dir}/ROOT.war" todir="root:haton142401@192.168.0.99:/home/upload/tomcat/apache-tomcat-7.0.69/webapps"    
+		            trust="true" verbose="true"/>
+		<!--
+		<sleep seconds="20" />
+		<sshexec host="192.168.0.99" username="root"   
+				            password="haton142401" command="${tomcat.home}/bin/shutdown.sh" trust="true" />  
+				<sleep seconds="5" />
+				<sshexec host="192.168.0.99" username="root"   
+						            password="haton142401" command="${tomcat.home}/bin/startup.sh" trust="true" />
+        --> 
+		<echo message="上传完毕" />
 	</target>
 	
 	<target name="clean">

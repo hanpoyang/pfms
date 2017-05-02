@@ -1,5 +1,7 @@
 package org.tom.pfms.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -45,6 +47,16 @@ public class CreditBillServiceImpl extends BaseService implements CreditBillServ
 			return creditBillDao.queryCreditBillDetail(rp);
 		}catch(DaoException e) {
 			log.error("queryCreditBillDetail", e);
+			throw new ServiceException(e);
+		}
+	}
+	
+	@Override
+	public List<CreditBillDTO> queryCreditBillSummary(RequestParam rp) throws ServiceException {
+		try{
+			return creditBillDao.queryCreditBillSummary(rp);
+		}catch(DaoException e) {
+			log.error("queryCreditBillSummary", e);
 			throw new ServiceException(e);
 		}
 	}

@@ -36,7 +36,7 @@ body {
        });
        $("button[data-dismiss='modal']").bind("click",function(){
            console.log("=========================");
-           $("#modal-body").html('<input type="password" placeholder="请输入口令" id="password" class="form-control" name="password" value="" autocomplete="false">');
+           $("#modal-body").html('<input type="text" placeholder="请输入口令" id="password" class="form-control" name="password" value="" autocomplete="false">');
        });
    });
    

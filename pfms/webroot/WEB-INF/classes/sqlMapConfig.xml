@@ -16,5 +16,10 @@
        <mapper resource="CreditMailDao.xml"/>  
        <mapper resource="CreditBillDao.xml"/>  
        <mapper resource="DebitCardDao.xml" />
+       <mapper resource="DebitDetailDao.xml"/>
+       <mapper resource="DailySchedulerDao.xml" />
+       <mapper resource="SystemMenuDao.xml" />
+       <mapper resource="NbContactDao.xml" />
+       <mapper resource="PCEquipment.xml" />
      </mappers>  
  </configuration>  

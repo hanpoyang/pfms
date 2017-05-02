@@ -63,6 +63,8 @@ p.error-msg{color:red; text-indent:1em;}
 <script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 <script	src="http://cdn.bootcss.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+
+  
     function setCookie(cookieName, cookieValue){
         $.cookie(cookieName, cookieValue, { expires: 7 }); 
     }

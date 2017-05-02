@@ -28,6 +28,7 @@ body {
 <div class="form-panel center">
  <c:if test="${KEY_MESSAGE != null}"><p><c:out value="${KEY_MESSAGE}" /></p></c:if>
  <form class="form-horizontal" role="form" action="update" method="POST">
+  <input type="hidden" name="old-password" value="<c:out value="${KEY_RESULT.password}"/>" />
   <div class="form-group">
     <label for="accountId" class="col-sm-2 control-label">ID</label>
     <div class="col-sm-10">

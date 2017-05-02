@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.tom.pfms.common.dto.DebitCardDTO;
 import org.tom.pfms.common.dto.DebitSummaryDTO;
+import org.tom.pfms.common.dto.KeyValuePair;
 import org.tom.pfms.common.dto.PaginatedDTO;
 import org.tom.pfms.common.dto.RequestParam;
 import org.tom.pfms.common.exception.DaoException;
@@ -24,5 +25,7 @@ public interface DebitCardDao {
 	
 	public List<DebitSummaryDTO> queryDebitSummary() 
 		throws DaoException;
-
+    
+	public List<KeyValuePair> queryDebits(RequestParam rp) 
+		throws DaoException;
 }

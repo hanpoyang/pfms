@@ -58,5 +58,16 @@ public class CreditBillDaoImpl extends BaseDao implements CreditBillDao {
 			throw new DaoException(e);
 		}
 	}
+	
+	@Override
+	public List<CreditBillDTO> queryCreditBillSummary(RequestParam rp) throws DaoException {
+		try {
+			List<CreditBillDTO> dataList = sTemplate.selectList(ConstantSettings.SQL_ID.CreditBillDao.queryCreditBillSummary, rp);
+			return dataList;
+		} catch (Exception e) {
+			log.error("queryCreditBillSummary", e);
+			throw new DaoException(e);
+		}
+	}
 
 }

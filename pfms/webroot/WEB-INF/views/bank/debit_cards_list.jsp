@@ -108,7 +108,7 @@ body {
 	<tbody>
 	  <c:forEach var="row" items="${KEY_RESULT.dataList}"><tr>
 	        <td><c:out value="${row.bankName}" /></td>
-	        <td><c:out value="${row.cardNumber}" /></td>
+	        <td><a href="debitdetails?cardNumber=<c:out value="${row.cardNumber}" />"><c:out value="${row.cardNumber}" /></a></td>
 	        <td title="<c:out value="${row.accountName}" />"><script>var accountName = "<c:out value="${row.accountName}" />";document.write(accountName.substring(0, 5));</script></td>
 	        <td title="<c:out value="${row.issueBankName}" />"><script>var issueBankName = "<c:out value="${row.issueBankName}" />";document.write(issueBankName.substring(0, 5));</script></td>
 	        <td><c:out value="${row.currencyType}" /></td>

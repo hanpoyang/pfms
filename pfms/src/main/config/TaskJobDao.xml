@@ -9,7 +9,11 @@
     </select>
      
     <update id="updateTask" parameterType="org.tom.pfms.common.dto.TaskJobBean">
-        update fms_data_syn_props set syn_flag = #{synFlag},LAST_SYN_DATE=sysdate where status = 1 and syn_task_id=#{synTaskId}
+        update fms_data_syn_props set syn_flag = #{synFlag}, 
+        <if test="lastSynDate != null and lastSynDate != ''">
+        LAST_SYN_DATE=#{lastSynDate},
+        </if> 
+        user_modified = 'system', time_modified = sysdate where status = 1 and syn_task_id=#{synTaskId}
     </update>
     
     <update id="execParseMailProc">

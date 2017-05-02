@@ -1,5 +1,7 @@
 package org.tom.pfms.common.dto;
 
+import java.util.Date;
+
 import org.tom.pfms.common.utils.ConstantSettings;
 
 
@@ -13,6 +15,10 @@ public class RequestParam {
 	
 	String limit = "0";
 	String offset = "0";
+	
+	Date startDate = null;
+	
+	Date endDate = null;
 	
 	String loginUserName = "";
 	
@@ -57,11 +63,29 @@ public class RequestParam {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
+	
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
 	@Override
 	public String toString() {
 		return "RequestParam [requestObject=" + requestObject + ", pageNo="
 				+ pageNo + ", pageSize=" + pageSize + ", limit=" + limit
-				+ ", offset=" + offset + ", loginUserName=" + loginUserName
+				+ ", offset=" + offset + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", loginUserName=" + loginUserName
 				+ "]";
 	}
 	

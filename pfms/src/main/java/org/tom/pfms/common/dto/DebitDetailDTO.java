@@ -17,6 +17,17 @@ public class DebitDetailDTO {
 	private String fee;
 	private String purchaseStatus;
 	private String currencyType;
+	private String cardNumber;
+	private String bankCode;
+	private String bankName;
+	private String accountName;
+	
+	public String getAccountName() {
+		return accountName;
+	}
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
 	public String getDetailId() {
 		return detailId;
 	}
@@ -113,6 +124,26 @@ public class DebitDetailDTO {
 	public void setCurrencyType(String currencyType) {
 		this.currencyType = currencyType;
 	}
+	
+	
+	public String getCardNumber() {
+		return cardNumber;
+	}
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
+	}
+	public String getBankCode() {
+		return bankCode;
+	}
+	public void setBankCode(String bankCode) {
+		this.bankCode = bankCode;
+	}
+	public String getBankName() {
+		return bankName;
+	}
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
 	@Override
 	public String toString() {
 		return "DebitDetailDTO [detailId=" + detailId + ", debitCardId="
@@ -124,7 +155,10 @@ public class DebitDetailDTO {
 				+ ", receiveAccountCode=" + receiveAccountCode
 				+ ", receiveBankName=" + receiveBankName + ", purchaseChannel="
 				+ purchaseChannel + ", fee=" + fee + ", purchaseStatus="
-				+ purchaseStatus + ", currencyType=" + currencyType + "]";
+				+ purchaseStatus + ", currencyType=" + currencyType
+				+ ", cardNumber=" + cardNumber + ", bankCode=" + bankCode
+				+ ", bankName=" + bankName + ", accountName=" + accountName
+				+ "]";
 	}
 	 
 }

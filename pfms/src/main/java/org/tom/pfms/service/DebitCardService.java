@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.tom.pfms.common.dto.DebitCardDTO;
 import org.tom.pfms.common.dto.DebitSummaryDTO;
+import org.tom.pfms.common.dto.KeyValuePair;
 import org.tom.pfms.common.dto.PaginatedDTO;
 import org.tom.pfms.common.dto.RequestParam;
 import org.tom.pfms.common.exception.ServiceException;
@@ -17,11 +18,14 @@ public interface DebitCardService {
 		throws ServiceException;
 	
 	public void updateDebit(RequestParam rp)
-	     throws ServiceException;
+	    throws ServiceException;
 	
 	public void invalidDebit(RequestParam rp)
-		 throws ServiceException;
+		throws ServiceException;
 	
 	public List<DebitSummaryDTO> queryDebitSummary() 
-			throws ServiceException;
+		throws ServiceException;
+	
+	public List<KeyValuePair> queryDebits(RequestParam rp) 
+	    throws ServiceException;
 }
