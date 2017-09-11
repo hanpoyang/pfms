@@ -148,8 +148,8 @@ public class MailUtil {
 	
 	public static void main(String args[])throws Exception{
 		String host = "imap.163.com"; // ¡¾pop.mail.yahoo.com.cn¡¿
-		String username = "hanpoyang"; // ¡¾wwp_1124¡¿
-		String password = "haton142401"; // ¡¾........¡¿
+		String username = "********"; // ¡¾wwp_1124¡¿
+		String password = "********"; // ¡¾........¡¿
 		List r = getMailList(host, username, password);
 //		System.out.println();
 	}
