@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tom.pfms.dao.SysMenuDao">
+    <select id="queryMenus" resultType="org.tom.pfms.common.dto.SysMenuBean">
+      select menu_id   menuId,
+	       parent_id parentMenuId,
+	       menu_name menuName,
+	       menu_url  menuUrl
+	    from fms_sys_menu_tbl
+	  where menu_status = 'Y'
+	  order by menu_id asc
+    </select>
+</mapper>

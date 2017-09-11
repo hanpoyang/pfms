@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.tom.pfms.dao.NbContactDao">
+    <sql id="querySql">
+        select contact_id contactId,
+			contact_name contactName,
+			contact_cellphone contactCellphone,
+			contact_fixedphone contactFixedphone,
+			contact_email contactEmail,
+			contact_qq contactQq,
+			contact_nick contactNick,
+			contact_wechat contactWechat,
+			contact_other contactOther,
+			contact_address contactAddress,
+			contact_company contactCompany,
+			contact_descrip contactDescrip,
+			contact_status contactStatus,
+			contact_en_name contactEnName
+		 from fms_nb_contact_info t
+		 where t.data_owner = #{loginUserName}
+		 <if test="requestObject.contactId != null and requestObject.contactId != ''">
+		 and contact_id = #{requestObject.contactId}
+		 </if>
+    </sql>
+    
+    <sql id="pageTail">
+        ) t where rownum &lt;= #{limit}) t1 where t1.rn &gt; #{offset}
+     </sql>
+    
+     <sql id="pageHead">
+        select * from (select rownum rn, t.* from (
+     </sql>
+    
+     <sql id="countTail">
+     <![CDATA[
+        )
+     ]]>
+     </sql>
+    
+     <sql id="countHead">
+        select count(1) from (
+     </sql>
+    
+    <select id="queryNbContact" parameterType="org.tom.pfms.common.dto.RequestParam" resultType="org.tom.pfms.common.dto.NbContactDTO">
+        <include refid="pageHead" />
+        <include refid="querySql" />
+        <include refid="pageTail" />
+    </select>
+    
+    <select id="queryNbContactCount" parameterType="org.tom.pfms.common.dto.RequestParam" resultType="Integer">
+        <include refid="countHead" />
+        <include refid="querySql" /> 
+         <include refid="countTail" />
+    </select>
+    
+    <insert id="insertNbContact" parameterType="org.tom.pfms.common.dto.RequestParam">
+    insert into fms_nb_contact_info (
+		contact_id,
+		contact_name,
+		contact_cellphone,
+		contact_fixedphone,
+		contact_email,
+		contact_qq,
+		contact_nick,
+		contact_wechat,
+		contact_other,
+		contact_address,
+		contact_company,
+		contact_descrip,
+		contact_status,
+		contact_en_name,
+		data_owner
+	) values (
+	    sys_guid(),
+		#{requestObject.contactName},
+		#{requestObject.contactCellphone},
+		#{requestObject.contactFixedphone},
+		#{requestObject.contactEmail},
+		#{requestObject.contactQq},
+		#{requestObject.contactNick},
+		#{requestObject.contactWechat},
+		#{requestObject.contactOther},
+		#{requestObject.contactAddress},
+		#{requestObject.contactCompany},
+		#{requestObject.contactDescrip},
+		'Y',
+		#{requestObject.contactEnName},
+		#{loginUserName}
+	)
+    </insert>
+    
+    <update id="updateNbContact" parameterType="org.tom.pfms.common.dto.RequestParam">
+      update fms_nb_contact_info set (
+		contact_name,
+		contact_cellphone,
+		contact_fixedphone,
+		contact_email,
+		contact_qq,
+		contact_nick,
+		contact_wechat,
+		contact_other,
+		contact_address,
+		contact_company,
+		contact_descrip,
+		contact_status,
+		contact_en_name,
+		data_owner
+	) = (
+	    select #{requestObject.contactName},
+		#{requestObject.contactCellphone},
+		#{requestObject.contactFixedphone},
+		#{requestObject.contactEmail},
+		#{requestObject.contactQq},
+		#{requestObject.contactNick},
+		#{requestObject.contactWechat},
+		#{requestObject.contactOther},
+		#{requestObject.contactAddress},
+		#{requestObject.contactCompany},
+		#{requestObject.contactDescrip},
+		'Y',
+		#{requestObject.contactEnName},
+		#{loginUserName} from dual
+	) where contact_id = #{requestObject.contactId}
+	  and data_owner = #{loginUserName}
+    </update>
+    
+    <delete id="deleteNbContact" parameterType="org.tom.pfms.common.dto.RequestParam">
+        delete from fms_nb_contact_info t where t.contact_id = #{requestObject.contactId}
+    </delete>
+</mapper>
