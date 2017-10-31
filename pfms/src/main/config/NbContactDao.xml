@@ -20,8 +20,16 @@
 			contact_en_name contactEnName
 		 from fms_nb_contact_info t
 		 where t.data_owner = #{loginUserName}
+		 and contact_status = 'Y'
 		 <if test="requestObject.contactId != null and requestObject.contactId != ''">
 		 and contact_id = #{requestObject.contactId}
+		 </if>
+		 <if test="requestObject.contactName != null and requestObject.contactName != ''">
+		 and (contact_name like '%'||#{requestObject.contactName}||'%' 
+		 or contact_nick like '%'||#{requestObject.contactName}||'%'
+		 or contact_company like '%'||#{requestObject.contactName}||'%'
+		 or contact_en_name like '%'||#{requestObject.contactName}||'%'
+		 or contact_descrip like '%'||#{requestObject.contactName}||'%')
 		 </if>
     </sql>
     
@@ -71,7 +79,9 @@
 		contact_descrip,
 		contact_status,
 		contact_en_name,
-		data_owner
+		data_owner,
+		time_created,
+		user_created
 	) values (
 	    sys_guid(),
 		#{requestObject.contactName},
@@ -87,6 +97,8 @@
 		#{requestObject.contactDescrip},
 		'Y',
 		#{requestObject.contactEnName},
+		#{loginUserName},
+		sysdate,
 		#{loginUserName}
 	)
     </insert>
@@ -106,7 +118,9 @@
 		contact_descrip,
 		contact_status,
 		contact_en_name,
-		data_owner
+		data_owner,
+		time_modified,
+		user_modified
 	) = (
 	    select #{requestObject.contactName},
 		#{requestObject.contactCellphone},
@@ -121,6 +135,8 @@
 		#{requestObject.contactDescrip},
 		'Y',
 		#{requestObject.contactEnName},
+		#{loginUserName},
+		sysdate,
 		#{loginUserName} from dual
 	) where contact_id = #{requestObject.contactId}
 	  and data_owner = #{loginUserName}
@@ -129,4 +145,8 @@
     <delete id="deleteNbContact" parameterType="org.tom.pfms.common.dto.RequestParam">
         delete from fms_nb_contact_info t where t.contact_id = #{requestObject.contactId}
     </delete>
+    
+    <update id="invalidNbContact" parameterType="org.tom.pfms.common.dto.RequestParam">
+        update fms_nb_contact_info t set t.contact_status = #{requestObject.contactStatus}, user_modified = #{loginUserName}, time_modified = sysdate where  contact_id = #{requestObject.contactId}
+    </update>
 </mapper>

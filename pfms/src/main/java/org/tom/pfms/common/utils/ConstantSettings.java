@@ -102,6 +102,7 @@ public class ConstantSettings {
     	
     	public class SysMenuDao {
     		public static final String queryMenus = "org.tom.pfms.dao.SysMenuDao.queryMenus";
+    		public static final String saveMenus = "org.tom.pfms.dao.SysMenuDao.saveMenus";
     	}
     	
     	public class NbContactDao {
@@ -110,10 +111,20 @@ public class ConstantSettings {
     		public static final String insertNbContact = "org.tom.pfms.dao.NbContactDao.insertNbContact";
     		public static final String updateNbContact = "org.tom.pfms.dao.NbContactDao.updateNbContact";
     		public static final String deleteNbContact = "org.tom.pfms.dao.NbContactDao.deleteNbContact";
+    		public static final String invalidUser = "org.tom.pfms.dao.NbContactDao.invalidNbContact";
     	}
     	
     	public class PCEquipmentDao {
     		public static final String queryPcList = "org.tom.pfms.dao.PCEquipmentDao.queryPcList";
+    	}
+    	
+    	public class NbEssayInfoDao {
+    		public static final String queryNbEssayInfoList = "org.tom.pfms.dao.NbEssayInfoDao.queryNbEssayInfoList";
+    		public static final String queryNbEssayInfoCount = "org.tom.pfms.dao.NbEssayInfoDao.queryNbEssayInfoCount";
+    		public static final String saveNbEssayInfo = "org.tom.pfms.dao.NbEssayInfoDao.saveNbEssayInfo";
+    		public static final String updateNbEssayInfo = "org.tom.pfms.dao.NbEssayInfoDao.updateNbEssayInfo";
+    		public static final String deleteNbEssay = "org.tom.pfms.dao.NbEssayInfoDao.deleteNbEssay";
+    		public static final String queryEssayCategory = "org.tom.pfms.dao.NbEssayInfoDao.queryEssayCategory";
     	}
     	
     }

@@ -60,5 +60,15 @@ public class NbContactServiceImpl extends BaseService implements
 		}
 
 	}
+	
+	@Override
+	public void invalidNbContact(RequestParam rp) throws ServiceException {
+		try{
+			nbContactDao.invalidNbContact(rp);
+		}catch(DaoException ex) {
+			log.error("invalidNbContact", ex);
+			throw new ServiceException(ex);
+		}
+	}
 
 }

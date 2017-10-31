@@ -3,6 +3,7 @@ package org.tom.pfms.dao.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.tom.pfms.common.dto.RequestParam;
 import org.tom.pfms.common.dto.SysMenuBean;
 import org.tom.pfms.common.exception.DaoException;
 import org.tom.pfms.common.utils.ConstantSettings;
@@ -18,6 +19,16 @@ public class SysMenuDaoImpl extends BaseDao implements SysMenuDao {
 			return sTemplate.selectList(ConstantSettings.SQL_ID.SysMenuDao.queryMenus);
 		} catch(Exception e) {
 			log.error("queryMenus", e);
+			throw new DaoException(e);
+		}
+	}
+	
+	@Override
+	public void saveMenus(RequestParam rp) throws DaoException {
+		try{
+			sTemplate.insert(ConstantSettings.SQL_ID.SysMenuDao.queryMenus, rp);
+		} catch(Exception e) {
+			log.error("saveMenus", e);
 			throw new DaoException(e);
 		}
 	}

@@ -68,5 +68,15 @@ public class NbContactDaoImpl extends BaseDao implements NbContactDao {
 			throw new DaoException(e);
 		}
 	}
+	
+	@Override
+	public void invalidNbContact(RequestParam rp) throws DaoException {
+		try {
+			sTemplate.insert(ConstantSettings.SQL_ID.NbContactDao.invalidUser, rp);
+		} catch (Exception e) {
+			log.error("invalidUser", e);
+			throw new DaoException(e);
+		}
+	}
 
 }

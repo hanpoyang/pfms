@@ -21,5 +21,6 @@
        <mapper resource="SystemMenuDao.xml" />
        <mapper resource="NbContactDao.xml" />
        <mapper resource="PCEquipment.xml" />
+       <mapper resource="NbEssayInfoDao.xml" />
      </mappers>  
  </configuration>  

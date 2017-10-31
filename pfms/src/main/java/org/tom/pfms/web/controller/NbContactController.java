@@ -40,10 +40,11 @@ public class NbContactController extends BaseController {
     		rp.setRequestObject(nbContactDTO);
     		rp.setPageNo(iPageNo);
     		rp.setLoginUserName(username);
-    		saveRequestParam(request, rp);
+    		
     		if(ConstantSettings.ACTION_BACK.equals(action)){
     			rp = getPreRequestParam(request);
     		}
+    		saveRequestParam(request, rp);
     		PaginatedDTO<NbContactDTO> result = null;
     		String message = null;
     		try{
@@ -145,6 +146,40 @@ public class NbContactController extends BaseController {
 	}
 	
 	
+	/**
+	 * 显示联系簿明细
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/nb/contact_text")
+	public String showDetail(HttpServletRequest request){
+		UserDTO user = (UserDTO)request.getSession(false).getAttribute(ConstantSettings.LOGIN_USER);
+		String username = user.getUserName();
+		NbContactDTO nbContactDTO = (NbContactDTO)encapsulateSubmitDTO(request, NbContactDTO.class);
+		RequestParam rp = new RequestParam();
+		rp.setRequestObject(nbContactDTO);
+		rp.setLoginUserName(username);
+		
+		PaginatedDTO<NbContactDTO> result = null;
+		String message = null;
+		try{
+			result = nbContactService.queryNbContact(rp);
+			result.setPageNo(1);
+			List<NbContactDTO> list = result.getDataList();
+			NbContactDTO bean = list.get(0);
+			request.setAttribute(ConstantSettings.KEY_RESULT, bean);
+			rp = getPreRequestParam(request);
+			saveRequestParam(request, rp);
+		}catch(ServiceException e) {
+			log.error("showDetail", e);
+			message = MessageUtils.getMessage(ConstantSettings.LABEL_SYSTEM_ERROR);
+		}
+		request.setAttribute(ConstantSettings.KEY_MESSAGE, message);
+		return "nb/contact_text";
+	}
+	
+	
 	@RequestMapping("/nb/contact_update")
 	public String update(HttpServletRequest request) throws Exception {
 		try{
@@ -223,6 +258,37 @@ public class NbContactController extends BaseController {
 		}
 		Gson gson = new Gson();
 		responseBody = gson.toJson(responseMap);
+		return responseBody;
+	}
+	
+	@RequestMapping(value="/nb/contact_invalid", produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public String invalidContact(HttpServletRequest request){
+		Map<String, Object> responseMap = new HashMap<String, Object>();
+		String action = request.getParameter("Action");
+		NbContactDTO nbContactDTO = (NbContactDTO)encapsulateSubmitDTO(request, NbContactDTO.class);
+		nbContactDTO.setContactStatus("N");
+		UserDTO user = (UserDTO)request.getSession(false).getAttribute(ConstantSettings.LOGIN_USER);
+		String username = user.getUserName();
+		RequestParam rp = new RequestParam();
+		rp.setRequestObject(nbContactDTO);
+		rp.setLoginUserName(username);
+		saveRequestParam(request, rp);
+		if(ConstantSettings.ACTION_BACK.equals(action)){
+			rp = getPreRequestParam(request);
+		}
+		try{
+			nbContactService.invalidNbContact(rp);
+			responseMap.put("flag", 1);
+			responseMap.put("message", "成功");
+		}catch(ServiceException e) {
+			log.error("invalidContact", e);
+			responseMap.put("flag", 0);
+			String message = MessageUtils.getMessage(ConstantSettings.LABEL_SYSTEM_ERROR);
+			responseMap.put("message", message);
+		}
+		Gson gson = new Gson();
+		String responseBody = gson.toJson(responseMap);
 		return responseBody;
 	}
 	

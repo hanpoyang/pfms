@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
+import org.tom.pfms.common.dto.RequestParam;
 import org.tom.pfms.common.dto.SysMenuBean;
 import org.tom.pfms.common.exception.DaoException;
 import org.tom.pfms.common.exception.ServiceException;
@@ -54,4 +55,16 @@ public class SysMenuServiceImpl extends BaseService implements SysMenuService {
 		return list;
 	}
 
+	@Override
+	public void saveMenus(RequestParam rp) throws ServiceException {
+		// TODO Auto-generated method stub
+		try{
+			sysMenuDao.saveMenus(rp);
+		}catch(DaoException e) {
+			log.error("saveMenus", e);
+			throw new ServiceException(e);
+		}
+	}
+
+	
 }

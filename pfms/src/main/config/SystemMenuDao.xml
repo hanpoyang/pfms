@@ -12,4 +12,28 @@
 	  where menu_status = 'Y'
 	  order by menu_id asc
     </select>
+    
+    <insert id="saveMenus" parameterType="org.tom.pfms.common.dto.RequestParam">
+        insert into fms_sys_menu_tbl (
+            menu_id,
+            parent_id,
+            menu_name,
+            menu_url,
+            menu_status,
+            user_created,
+            time_created,
+            user_modified,
+            time_modified
+        ) values (
+            sys_guid(),
+            #{requestObject.parentId},
+            #{requestObject.menuName},
+            #{requestObject.menuUrl},
+            'Y',
+            #{loginUser}
+            sysdate,
+            #{loginUser},
+            sysdate
+        )
+    </insert>
 </mapper>

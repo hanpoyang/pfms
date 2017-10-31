@@ -17,4 +17,7 @@ public interface NbContactService {
     
     public void deleteNbContact(RequestParam rp)
         throws ServiceException;
+    
+    public void invalidNbContact(RequestParam rp)
+            throws ServiceException;
 }

@@ -19,6 +19,7 @@ body {
 .float-right{float:right;}
 </style>
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/tether/1.3.6/js/tether.min.js"></script>
 <script	src="http://cdn.bootcss.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"></script>
 <script	src="../js/common.js"></script>
 <script type="text/javascript">
@@ -36,7 +37,7 @@ body {
        });
        $("button[data-dismiss='modal']").bind("click",function(){
            console.log("=========================");
-           $("#modal-body").html('<input type="text" placeholder="请输入口令" id="password" class="form-control" name="password" value="" autocomplete="false">');
+           $("#modal-body").html('<input type="password" placeholder="请输入口令" id="password" class="form-control" name="password" value="" autocomplete="false">');
        });
    });
    
@@ -105,7 +106,7 @@ body {
 				</h4>
 			</div>
 			<div class="modal-body" id="modal-body">
-			  <input type="text" placeholder="请输入口令" id="password" class="form-control" name="password" value="" />
+			  <input type="password" placeholder="请输入口令" id="password" class="form-control" name="password" value="" />
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭

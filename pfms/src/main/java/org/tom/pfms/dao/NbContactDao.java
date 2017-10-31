@@ -14,8 +14,11 @@ public interface NbContactDao {
     	throws DaoException;
     
     public void updateNbContact(RequestParam rp)
-        	throws DaoException;
+        throws DaoException;
     
     public void deleteNbContact(RequestParam rp)
-        	throws DaoException;
+        throws DaoException;
+    
+    public void invalidNbContact(RequestParam rp) 
+    	throws DaoException;
 }

@@ -78,7 +78,7 @@ public class DebitCardController extends BaseController {
 		rp.setRequestObject(debitCardDTO);
 		rp.setLoginUserName(username);
 		String message = null;
-		saveRequestParam(request, rp);
+		//saveRequestParam(request, rp);
 		try{
 			debitCardService.saveDebit(rp);
 			rp = getPreRequestParam(request);
@@ -94,7 +94,6 @@ public class DebitCardController extends BaseController {
 	
 	@RequestMapping(value="/bank/debitedit", method=RequestMethod.GET)
 	public String editForm(HttpServletRequest request) throws Exception {
-		String action = request.getParameter("Action");
 		UserDTO user = (UserDTO)request.getSession(false).getAttribute(ConstantSettings.LOGIN_USER);
 		String username = user.getUserName();
 		DebitCardDTO debitCardDTO = (DebitCardDTO)encapsulateSubmitDTO(request, DebitCardDTO.class);
@@ -105,10 +104,6 @@ public class DebitCardController extends BaseController {
 		rp.setLoginUserName(username);
 		rp.setRequestObject(debitCardDTO);
 		rp.setPageNo(iPageNo);
-		saveRequestParam(request, rp);
-		if(ConstantSettings.ACTION_BACK.equals(action)){
-			rp = getPreRequestParam(request);
-		}
 		DebitCardDTO result = null;
 		String message = null;
 		try{
@@ -138,7 +133,7 @@ public class DebitCardController extends BaseController {
 		rp.setRequestObject(debitCardDTO);
 		rp.setLoginUserName(username);
 		String message = null;
-		saveRequestParam(request, rp);
+		//saveRequestParam(request, rp);
 		try{
 			debitCardService.updateDebit(rp);
 			rp = getPreRequestParam(request);
@@ -149,7 +144,7 @@ public class DebitCardController extends BaseController {
 			throw new Exception(e);
 		}
 		request.setAttribute(ConstantSettings.KEY_MESSAGE, message);
-		return "redirect:/bank/debitcards";
+		return "redirect:/bank/debitcards?Action=back";
 	}
 	
 	@RequestMapping(value="/bank/debit/delete",method=RequestMethod.GET)

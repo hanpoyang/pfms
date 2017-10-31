@@ -22,6 +22,7 @@ th, td{
 </style>
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script src="//cdn.bootcss.com/tether/1.3.6/js/tether.min.js"></script>
 <script	src="http://cdn.bootcss.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"></script>
 </head>
 <body>

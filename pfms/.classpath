@@ -59,5 +59,6 @@
 	<classpathentry kind="lib" path="D:/soft/apache-tomcat-7.0.69/lib/websocket-api.jar"/>
 	<classpathentry kind="lib" path="lib/jsch-0.1.54.jar"/>
 	<classpathentry kind="lib" path="lib/commons-net-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/mongo-java-driver-3.5.0.jar"/>
 	<classpathentry kind="output" path="webroot/WEB-INF/classes"/>
 </classpath>
