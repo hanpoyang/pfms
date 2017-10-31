@@ -1,1 +1,0 @@
-java.lang.System.out.println("hello js");
