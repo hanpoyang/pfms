@@ -98,7 +98,7 @@
 		
 	<target name="deploy" depends="ear-tomcat">
 		<copy todir="${deploy.dir}" file="${dist.dir}/ROOT.war"/>
-		<scp file="${dist.dir}/ROOT.war" todir="root:haton142401@192.168.0.99:/home/upload/tomcat/apache-tomcat-7.0.69/webapps"    
+		<scp file="${dist.dir}/ROOT.war" todir="root:********************************@192.168.0.99:/home/upload/tomcat/apache-tomcat-7.0.69/webapps"    
 		            trust="true" verbose="true"/>
 		<!--
 		<sleep seconds="20" />
