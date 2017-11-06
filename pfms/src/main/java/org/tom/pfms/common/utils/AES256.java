@@ -11,7 +11,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class AES256 {  
 	 /**
-     * AESº”√‹
+     * AES¬º√ì√É√ú
      */
     public static String encrypt(String seed, String cleartext) throws Exception {  
         byte[] rawKey = getRawKey(seed.getBytes());  
@@ -20,7 +20,7 @@ public class AES256 {
     }  
        
     /**
-     * AESΩ‚√‹
+     * AES¬Ω√¢√É√ú
      */
     public static String decrypt(String seed, String encrypted) throws Exception {  
         byte[] rawKey = getRawKey(seed.getBytes());  
@@ -109,7 +109,7 @@ public class AES256 {
     }
       
     public static void main(String[] args) {  
-    	String s1 = encrypt("haton142401");
+    	String s1 = encrypt("123456");
     	System.out.println(s1);
     	String s2 = decrypt(s1);
     	System.out.println(s2);
