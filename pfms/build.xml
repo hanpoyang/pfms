@@ -100,14 +100,6 @@
 		<copy todir="${deploy.dir}" file="${dist.dir}/ROOT.war"/>
 		<scp file="${dist.dir}/ROOT.war" todir="root:********************************@192.168.0.99:/home/upload/tomcat/apache-tomcat-7.0.69/webapps"    
 		            trust="true" verbose="true"/>
-		<!--
-		<sleep seconds="20" />
-		<sshexec host="192.168.0.99" username="root"   
-				            password="haton142401" command="${tomcat.home}/bin/shutdown.sh" trust="true" />  
-				<sleep seconds="5" />
-				<sshexec host="192.168.0.99" username="root"   
-						            password="haton142401" command="${tomcat.home}/bin/startup.sh" trust="true" />
-        --> 
 		<echo message="上传完毕" />
 	</target>
 	
