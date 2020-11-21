@@ -41,11 +41,11 @@ class jobs_cjol(object):
     def login(self):
         self.driver.get(self.login_page)
         username_box = self.driver.find_element_by_id('txtUserName')
-        username_box.send_keys('hanpoyang')
+        username_box.send_keys('***********')
         username_box.send_keys(Keys.TAB)
 
         password_box = self.driver.find_element_by_id('txtPassword')
-        password_box.send_keys('240150795')
+        password_box.send_keys('**********')
         self.driver.find_element_by_id('btnLogin_input').click()
         time.sleep(5)
         cookies=self.driver.get_cookies()
