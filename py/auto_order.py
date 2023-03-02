@@ -21,8 +21,8 @@ class order(object):
             print 'env os-linux'
             phantomjs_dir = '/home/upload/phantomjs/phantomjs-1.9.7-linux-x86_64/bin/phantomjs'
             self.driver=webdriver.PhantomJS(phantomjs_dir, service_args=['--ssl-protocol=any'])
-        self._m_username = "hanpoyang@hotmail.com"
-        self._m_password = "haton142401"
+        self._m_username = "**********"
+        self._m_password = "**********"
         self._ali_username = "*******"
         self._ali_password = "*******"
         self._m_mealtype = u"大"
